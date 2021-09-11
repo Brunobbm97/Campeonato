@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F1 Page</title>
+    <link rel="stylesheet" type="text/css" href="style.css"> 
+</head>
+<body>
+    <div class="bandeira">
+    <div class="header">
+        <header>
+            <img src="img/f1-new-logo.svg">
+        </header>
+    </div>    
+    <div class="container">
+        <section class="formulario">
+            <header>
+            <h1>Pilotos do Campeonato</h1>
+            <div class="adicionar">
+                <input type="text" placeholder="Adicionar um(a) novo(a) piloto(a)" id="novopiloto">
+                <button>ENVIAR</button>
+                <button type="submit" id="Refresh" onClick=refreshPage()>Atualizar Página</button>
+            </div>
+        </header>
+        <div class="seeTasksDiv">
+                
+        </div>
+        </section>
+    </div>
+    </div>
+</body>
+<script>
+    const seeTasksDiv = document.querySelector('.seeTasksDiv')
+
+    const seeTasksUl =document.createElement('ul')
+    seeTasksDiv.appendChild(seeTasksUl)
+
+    function getTask(){
+        fetch('https://api.randomuser.me/?results=10')
+           .then(response => response.json())
+           .then(data => {
+               console.log(data)
+
+
+               for(i=0; i<data.results.length;i++){
+                    const seeTasksLi = document.createElement('li')   
+                  seeTasksLi.innerText= data.results[i].name.first
+                  seeTasksUl.appendChild(seeTasksLi)
+               }
+                })
+    }
+    getTask()
+    function refreshPage(){
+         window.location.reload();
+    }
+</script>
+</html>
